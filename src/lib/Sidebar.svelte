@@ -1,6 +1,11 @@
 <script>
-	import Button from "./Button.svelte";
+	import AddContactForm from "./AddContactForm.svelte";
+import Button from "./Button.svelte";
 
+    let addContactViewVisible = false;
+    function AddContacBtnClick() {
+        addContactViewVisible = true;
+    }
 </script>
 
 <div class="flex flex-col w-1/4 h-screen">
@@ -9,6 +14,10 @@
     </div>
     <div class="h-full bg-gradient-to-b from-primary-color-400 to-primary-color-100"></div>
     <div class="flex items-center h-16 bg-gradient-to-b from-primary-color-100 to-primary-color-50">
-        <Button CssClasses="primary">Add Contact</Button>
+        <Button CssClasses="primary" on:click={AddContacBtnClick}>Add Contact</Button>
     </div>
 </div>
+
+{#if addContactViewVisible}
+<AddContactForm bind:addContactViewVisible={addContactViewVisible} />
+{/if}
