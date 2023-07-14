@@ -1,21 +1,31 @@
 <script lang="ts">
-    export let addContactViewVisible: boolean;
+	export let addContactViewVisible: boolean;
 	import Button from './Button.svelte';
+	import axios from 'axios';
 
 	let contactName = '';
 
 	function handleSubmit() {
-		
-        addContactViewVisible = false;
+		axios
+			.post('http://localhost:8080/contacts', {	
+				from: 'test',
+				to: [contactName]
+			})
+			.then(function (response) {
+				console.log(response);
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		addContactViewVisible = false;
 	}
 
-    function handleCancleClick() {
-        console.log("hallo")
-        addContactViewVisible = false;
-    }
+	function handleCancleClick() {
+		addContactViewVisible = false;
+	}
 </script>
 
-<div class="fixed w-full h-full top-0 left-0 bg-green-600">
+<div class="fixed w-full h-full top-0 left-0 bg-gray-600 opacity-80">
 	<div
 		class="fixed m-auto p-10 left-1/2 top-1/2 border rounded-lg bg-white -translate-x-1/2 -translate-y-1/2"
 	>
