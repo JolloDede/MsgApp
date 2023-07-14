@@ -3,6 +3,8 @@
 	import AddContactForm from './AddContactForm.svelte';
 	import Button from './Button.svelte';
 	import axios from 'axios';
+	import { activeContact } from '../stores';
+	import { formatContactString } from '../helper/ContactFormat';
 
 	let contacts: Contact[] = [];
 
@@ -11,22 +13,24 @@
 		addContactViewVisible = true;
 	}
 
-	function formatContactString(to: string[]): string {
-		let result = '';
-		for (let i = 0; i < to.length; i++) {
-			if (result == '') {
-				result = to[i];
-			} else {
-				result = result + ', ' + to[i];
-			}
-		}
-		return result;
+	function handleContactClick(contact: Contact) {
+		activeContact.set(contact);
 	}
 
 	onMount(() => {
 		axios.get('http://localhost:8080/contacts').then((response) => {
 			contacts = response.data;
 			console.log(response);
+            
+			if (contacts.length >= 1) {
+				activeContact.update((aContact) => {
+					if (!aContact) {
+						return contacts[0];
+					}else {
+                        return aContact;
+                    }
+				});
+			}
 		});
 	});
 </script>
@@ -37,7 +41,7 @@
 	</div>
 	<div class="flex flex-col h-full bg-gradient-to-b from-primary-color-400 to-primary-color-100">
 		{#each contacts as contact}
-			<div class="p-2">
+			<div class="p-2 cursor-pointer" on:click={() => handleContactClick(contact)}>
 				<p class="pl-2">
 					{formatContactString(contact.to)}
 				</p>
