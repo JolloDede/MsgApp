@@ -1,13 +1,13 @@
 <script lang="ts">
+	import { axiosInstance } from '../helper/Axios';
 	export let addContactViewVisible: boolean;
 	import Button from './Button.svelte';
-	import axios from 'axios';
 
 	let contactName = '';
 
 	function handleSubmit() {
-		axios
-			.post('http://localhost:8080/contacts', {	
+		axiosInstance
+			.post('/contacts', {	
 				from: 'test',
 				to: [contactName]
 			})

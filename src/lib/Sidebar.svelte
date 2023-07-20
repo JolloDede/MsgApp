@@ -2,9 +2,9 @@
 	import { onMount } from 'svelte';
 	import AddContactForm from './AddContactForm.svelte';
 	import Button from './Button.svelte';
-	import axios from 'axios';
 	import { activeContact } from '../stores';
 	import { formatContactString } from '../helper/ContactFormat';
+	import { axiosInstance } from '../helper/Axios';
 
 	let contacts: Contact[] = [];
 
@@ -18,7 +18,7 @@
 	}
 
 	onMount(() => {
-		axios.get('http://localhost:8080/contacts').then((response) => {
+		axiosInstance.get('/contacts').then((response) => {
 			contacts = response.data;
 			console.log(response);
             
@@ -41,11 +41,11 @@
 	</div>
 	<div class="flex flex-col h-full bg-gradient-to-b from-primary-color-400 to-primary-color-100">
 		{#each contacts as contact}
-			<div class="p-2 cursor-pointer" on:click={() => handleContactClick(contact)}>
+			<button class="p-2 cursor-pointer" on:click={() => handleContactClick(contact)}>
 				<p class="pl-2">
 					{formatContactString(contact.to)}
 				</p>
-			</div>
+			</button>
 		{/each}
 	</div>
 	<div class="flex items-center h-16 bg-gradient-to-b from-primary-color-100 to-primary-color-50">
