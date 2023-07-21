@@ -9,10 +9,11 @@
 	let contacts: Contact[] = [];
 
 	let addContactViewVisible = false;
+
 	function AddContacBtnClick() {
 		addContactViewVisible = true;
 	}
-
+	
 	function handleContactClick(contact: Contact) {
 		activeContact.set(contact);
 	}
