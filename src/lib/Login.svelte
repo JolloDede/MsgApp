@@ -11,7 +11,7 @@
 				username: name
 			})
 			.then((res) => {
-                console.log(res.data)
+				console.log(res.data);
 				user.set(res.data);
 				socket.auth = { id: res.data.id };
 				socket.connect();

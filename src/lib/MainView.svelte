@@ -2,8 +2,9 @@
 	import { formatContactString } from '../helper/ContactFormat';
 	import socket from '../helper/Websocket';
 	import { activeContact } from '../stores';
-	let msg: string;
+	import ChatHistory from './ChatHistory.svelte';
 
+	let msg: string;
 	let activContact: Contact;
 
 	activeContact.subscribe((value) => {
@@ -14,8 +15,9 @@
 		if (msg == '') {
 			return;
 		}
-		const message: Message = { roomId: activContact.id, content: msg };
-		socket.emit('private message', message);
+		const message: NewMessage = { roomId: activContact.id, content: msg };
+		socket.emit("private message", message);
+		msg = "";
 	}
 
 	function handleTextareaKeyPress(e: KeyboardEvent) {
@@ -38,7 +40,7 @@
 	<div
 		class="flex h-full border border-primary-color-300 bg-gradient-to-b from-primary-color-400 to-primary-color-100"
 	>
-		Messages
+		<ChatHistory />
 	</div>
 	<div class="flex h-16 bg-gradient-to-b from-primary-color-100 to-primary-color-50">
 		<div class="w-full">
@@ -50,13 +52,6 @@
 					bind:value={msg}
 					on:keypress={handleTextareaKeyPress}
 				/>
-
-				<!-- <textarea
-			id="chat"
-			rows="1"
-			class="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-			placeholder="Your message..."
-		/> -->
 				<button
 					type="submit"
 					class="inline-flex justify-center items-center p-2 text-primary-color-600 rounded-full cursor-pointer hover:bg-primary-color-200"
