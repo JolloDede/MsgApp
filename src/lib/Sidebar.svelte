@@ -2,9 +2,14 @@
 	import { onMount } from 'svelte';
 	import AddContactForm from './AddContactForm.svelte';
 	import Button from './Button.svelte';
-	import { activeContact } from '../stores';
+	import { activeContact, user } from '../stores';
 	import { formatContactString } from '../helper/ContactFormat';
 	import { axiosInstance } from '../helper/Axios';
+
+	let activeUser: User;
+	user.subscribe((value) => {
+		activeUser = value;
+	})
 
 	let contacts: Contact[] = [];
 
@@ -21,7 +26,6 @@
 	onMount(() => {
 		axiosInstance.get('/contacts').then((response) => {
 			contacts = response.data;
-			console.log(response);
             
 			if (contacts.length >= 1) {
 				activeContact.update((aContact) => {
@@ -38,9 +42,10 @@
 
 <div class="flex flex-col w-1/4 h-screen">
 	<div class="h-14 border-b border-r border-primary-color-300 bg-primary-color-400">
-		<h1 class="text-4xl text-center font-bold text-primary-color-900">Contact List</h1>
+		<h1 class="text-4xl text-center font-bold text-primary-color-900">{activeUser.username}</h1>
 	</div>
 	<div class="flex flex-col h-full bg-gradient-to-b from-primary-color-400 to-primary-color-100">
+		<h1 class="text-4xl text-center font-bold text-primary-color-900">Contact List</h1>
 		{#each contacts as contact}
 			<button class="p-2 cursor-pointer" on:click={() => handleContactClick(contact)}>
 				<p class="pl-2">
