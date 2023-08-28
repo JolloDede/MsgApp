@@ -43,10 +43,12 @@
 	});
 </script>
 
-<div class="flex flex-col">
+<div class="w-full">
 	{#each msgHistory as msg}
-		<div class="bg-primary-color-100 rounded-lg p-4">
+	<div class="flex w-full">
+		<div class="block bg-primary-color-100 rounded-lg p-4">
 			<p>{msg.content}</p>
 		</div>
+	</div>
 	{/each}
 </div>
