@@ -1,8 +1,8 @@
 <script lang="ts">
-	import MainView from '$lib/MainView.svelte';
-	import Sidebar from '../lib/Sidebar.svelte';
+	import MainView from '../components/MainView.svelte';
+	import Sidebar from '../components/Sidebar.svelte';
 	import { LOCALSTORAGE_PREFIX, user } from '../stores';
-	import Login from '$lib/Login.svelte';
+	import Login from '../components/Login.svelte';
 	import { Auth } from '../helper/Auth';
 	import { onMount } from 'svelte';
 	import { axiosInstance } from '../helper/Axios';
