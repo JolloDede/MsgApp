@@ -10,7 +10,6 @@
 
 	let singedIn: boolean;
 	onMount(async () => {
-		console.log('Mounted');
 		let value = JSON.parse(localStorage.getItem(LOCALSTORAGE_PREFIX + 'user'));
 		if (await Auth(value.username)) {
 			singedIn = true;

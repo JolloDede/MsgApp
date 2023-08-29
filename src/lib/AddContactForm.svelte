@@ -1,14 +1,20 @@
 <script lang="ts">
 	import { axiosInstance } from '../helper/Axios';
+	import { user } from '../stores';
 	export let addContactViewVisible: boolean;
 	import Button from './Button.svelte';
 
 	let contactName = '';
+	let activeUser: User;
+
+	user.subscribe(value => {
+		activeUser = value;
+	})
 
 	function handleSubmit() {
 		axiosInstance
 			.post('/contacts', {	
-				from: 'test',
+				from: activeUser.id,
 				to: [contactName]
 			})
 			.then((response) => {

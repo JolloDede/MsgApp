@@ -24,7 +24,7 @@
 	}
 
 	onMount(() => {
-		axiosInstance.get('/contacts').then((response) => {
+		axiosInstance.get('/contacts/'+activeUser.id).then((response) => {
 			contacts = response.data;
             
 			if (contacts.length >= 1) {

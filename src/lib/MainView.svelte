@@ -38,7 +38,7 @@
 		{/if}
 	</div>
 	<div
-		class="flex overflow-y-scroll border border-primary-color-300 bg-gradient-to-b from-primary-color-400 to-primary-color-100"
+		class="flex h-full overflow-y-scroll border border-primary-color-300 bg-gradient-to-b from-primary-color-400 to-primary-color-100"
 	>
 		<ChatHistory />
 	</div>

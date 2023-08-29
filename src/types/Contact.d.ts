@@ -1,6 +1,6 @@
 
-interface Contact {
-    id: string;
-    from: string;
-    to: string[];
+type Contact = {
+    id: string; // id
+    from: string; // id
+    to: User;
 }
